@@ -30,6 +30,7 @@ from time import sleep
 from dpeaDPi.DPiComputer import *
 from dpeaDPi.DPiStepper import *
 
+
 # ////////////////////////////////////////////////////////////////
 # //                     HARDWARE SETUP                         //
 # ////////////////////////////////////////////////////////////////
@@ -90,7 +91,7 @@ sm = ScreenManager()
 	
 class MainScreen(Screen):
     armPosition = 0
-    lastClick = time.clock()
+    lastClick = time.perf_counter()
 
     def __init__(self, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
@@ -98,7 +99,7 @@ class MainScreen(Screen):
 
     def debounce(self):
         processInput = False
-        currentTime = time.clock()
+        currentTime = time.perf_counter()
         if ((currentTime - self.lastClick) > DEBOUNCE):
             processInput = True
         self.lastClick = currentTime
@@ -116,8 +117,8 @@ class MainScreen(Screen):
     def setArmPosition(self, position):
         print("Move arm here")
 
-    def homeArm(self):
-        arm.home(self.homeDirection)
+    # def homeArm(self):
+    #     arm.home(self.homeDirection)
         
     def isBallOnTallTower(self):
         print("Determine if ball is on the top tower")
